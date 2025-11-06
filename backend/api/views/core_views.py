@@ -37,7 +37,7 @@ class MapPointViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = MapPoint.objects.all()
     serializer_class = MapPointSerializer
 
-class ForumTopicViewSet(viewsets.ModelViewSet):
+class TopicViewSet(viewsets.ModelViewSet):
     queryset = Topic.objects.all().order_by('-created_at')
     serializer_class = TopicSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
@@ -47,7 +47,7 @@ class ForumTopicViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
 
-class ForumPostViewSet(viewsets.ModelViewSet):
+class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all().order_by('created_at')
     serializer_class = PostSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
