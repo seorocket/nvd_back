@@ -1,12 +1,14 @@
 from rest_framework import viewsets, permissions
 from rest_framework.filters import SearchFilter
+from rest_framework.permissions import AllowAny
 
 
-from core.models import News, Announcement, Event, MapPoint
+from core.models import News, Announcement, Event, MapPoint, Tag
 from ..serializers.core_serializers import (NewsSerializer, 
                                             AnnouncementSerializer, 
                                             EventSerializer, 
-                                            MapPointSerializer)
+                                            MapPointSerializer,
+                                            TagSerializer)
 
 
 class IsOwnerOrReadOnly(permissions.BasePermission):
@@ -39,3 +41,8 @@ class MapPointViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = MapPointSerializer
 
 
+class TagViewSet(viewsets.ReadOnlyModelViewSet):
+    serializer_class = TagSerializer
+    queryset = Tag.objects.all()
+    permission_classes = (AllowAny,)
+    pagination_class = None
