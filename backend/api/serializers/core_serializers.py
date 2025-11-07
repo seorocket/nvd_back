@@ -1,7 +1,20 @@
 from rest_framework import serializers
 
-from core.models import News, Announcement, Event, MapPoint, Tag, Post, Topic
+from core.models import (News, 
+                         Announcement,
+                         Event,
+                         MapPoint,
+                         Tag,
+                         Post,
+                         Topic,
+                         NewsCategory)
 from ..serializers.user_serializers import UserSerializer
+
+
+class NewsCategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = NewsCategory
+        fields = '__all__'
 
 class NewsSerializer(serializers.ModelSerializer):
     class Meta:

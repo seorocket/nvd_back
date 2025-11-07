@@ -2,6 +2,17 @@ from django.db import models
 from users.models import User
 
 
+class NewsCategory(models.Model):
+    name = models.CharField(max_length=100, unique=True, verbose_name="Название рубрики")
+
+    class Meta:
+        verbose_name = "Рубрика"
+        verbose_name_plural = "Рубрики"
+
+    def __str__(self):
+        return self.name
+
+
 class News(models.Model):
     title = models.CharField(max_length=255, verbose_name="Заголовок")
     content = models.TextField(verbose_name="Текст новости")
@@ -9,6 +20,7 @@ class News(models.Model):
     is_important = models.BooleanField(default=False, verbose_name="Важное объявление")
     tags = models.ManyToManyField('Tag', blank=True, verbose_name="Теги")
     views_count = models.PositiveIntegerField(default=0, verbose_name="Количество просмотров")
+    category = models.ForeignKey(NewsCategory, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Рубрика")
 
     class Meta:
         verbose_name = "Новость"
