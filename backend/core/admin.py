@@ -1,5 +1,6 @@
 from django.contrib import admin
-
+from django import forms
+from ckeditor.widgets import CKEditorWidget
 from core.models import (News, 
                          Announcement,
                          Event,
@@ -54,7 +55,7 @@ class ForumTopicAdmin(admin.ModelAdmin):
 
 
 class ForumPostAdmin(admin.ModelAdmin):
-    list_display = ['author', 'topic', 'created_at', 'parent_post']
+    list_display = ['author', 'topic', 'content', 'created_at', 'parent_post']
     list_filter = ['created_at', 'topic', 'author']
     search_fields = ['content', 'author__username']
     raw_id_fields = ['topic', 'author', 'parent_post']

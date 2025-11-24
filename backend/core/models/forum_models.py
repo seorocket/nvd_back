@@ -1,5 +1,6 @@
 from django.db import models
 from users.models import User
+from ckeditor.fields import RichTextField
 
 class Topic(models.Model):
     title = models.CharField(max_length=255, verbose_name="Заголовок темы")
@@ -20,7 +21,8 @@ class Post(models.Model):
                               related_name='posts', 
                               verbose_name="Тема")
     author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Автор")
-    content = models.TextField(verbose_name="Содержание")
+    # content = models.TextField(verbose_name="Содержание")
+    content = RichTextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     parent_post = models.ForeignKey('self', on_delete=models.SET_NULL, 
