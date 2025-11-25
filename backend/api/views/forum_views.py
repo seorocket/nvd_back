@@ -1,6 +1,6 @@
 from rest_framework import viewsets, permissions
 from rest_framework.filters import SearchFilter
-
+from rest_framework.pagination import LimitOffsetPagination
 
 from core.models import Topic, Post
 from ..serializers.core_serializers import (PostSerializer,
@@ -14,6 +14,7 @@ class TopicViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     filter_backends = [SearchFilter]
     search_fields = ['title']
+    pagination_class = LimitOffsetPagination
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
@@ -23,6 +24,7 @@ class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all().order_by('created_at')
     serializer_class = PostSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    pagination_class = LimitOffsetPagination
 
     def get_queryset(self):
         topic_id = self.request.query_params.get('topic_id')

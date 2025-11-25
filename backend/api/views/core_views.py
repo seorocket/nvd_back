@@ -3,6 +3,7 @@ from rest_framework.filters import SearchFilter
 from rest_framework.permissions import AllowAny
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework.pagination import LimitOffsetPagination
 from django_filters.rest_framework import DjangoFilterBackend
 from ..filters import AnnouncementFilter, EventFilter
 
@@ -28,6 +29,7 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
 class NewsViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = News.objects.all()
     serializer_class = NewsSerializer
+    pagination_class = LimitOffsetPagination
 
 
 class AnnouncementViewSet(viewsets.ModelViewSet):
@@ -36,6 +38,7 @@ class AnnouncementViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
     filter_backends = [DjangoFilterBackend, SearchFilter]
     filterset_class = AnnouncementFilter
+    pagination_class = LimitOffsetPagination
     search_fields = ['title', 'description']
     ordering_fields = ['created_at', 'title']
 
@@ -46,6 +49,7 @@ class EventViewSet(viewsets.ReadOnlyModelViewSet):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
     filter_backends = [DjangoFilterBackend, SearchFilter]
     filterset_class = EventFilter
+    pagination_class = LimitOffsetPagination
     search_fields = ['title', 'description']
     ordering_fields = ['created_at', 'title']
 
@@ -59,21 +63,25 @@ class GalleryViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = GallerySerializer
     queryset = Gallery.objects.all()
     permission_classes = (AllowAny,)
+    pagination_class = LimitOffsetPagination
 
 class OrgViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = OrgSerializer
     queryset = Organization.objects.all()
     permission_classes = (AllowAny,)
+    pagination_class = LimitOffsetPagination
 
 class VacancyViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = VacancySerializer
     queryset = Vacancy.objects.all()
     permission_classes = (AllowAny,)
+    pagination_class = LimitOffsetPagination
 
 class AttrcationsViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = AttractionsSerializer
     queryset = Attractions.objects.all()
     permission_classes = (AllowAny,)
+    pagination_class = LimitOffsetPagination
 
 
 @api_view(['POST'])
