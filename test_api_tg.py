@@ -14,7 +14,6 @@ user_data = {
     "first_name": "Test",
     "last_name": "User",
     "username": "testuser",
-    "photo_url": "https://t.me/i/userpic/320/testuser.jpg", # Опционально
     "auth_date": str(int(time.time())), # Текущее время
 }
 

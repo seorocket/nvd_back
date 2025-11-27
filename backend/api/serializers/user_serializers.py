@@ -1,7 +1,10 @@
 from djoser.serializers import UserCreateSerializer, UserSerializer
 from django.contrib.auth import get_user_model
 from rest_framework import serializers, validators
-
+from users.models import TelegramUser
+import hashlib
+import hmac
+import os
 
 User = get_user_model()
 
@@ -30,3 +33,6 @@ class CustomUserSerializer(UserSerializer):
             "first_name",
             "last_name"
         )
+
+
+
